@@ -207,6 +207,10 @@ export class ServiceCard extends AbstractCard {
   public get isKubeApiServer(): boolean {
     return this.labelsProps.isKubeApiServer;
   }
+
+  public get isPortal(): boolean {
+    return this.labelsProps.isPortal;
+  }
 }
 
 export default ServiceCard;

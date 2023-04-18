@@ -12,6 +12,7 @@ export interface LabelsProps {
   isKubeApiServer: boolean;
   appName?: string;
   clusterName?: string;
+  isPortal: boolean;
 }
 
 export enum ReservedLabel {
@@ -28,6 +29,7 @@ export enum ReservedLabel {
 export enum SpecialLabel {
   KubeDNS = 'k8s:k8s-app=kube-dns',
   PrometheusApp = 'k8s:app=prometheus',
+  Portal = 'k8s:io.cilium.portal=true',
 }
 
 export class Labels {
@@ -175,6 +177,7 @@ export class Labels {
       isKubeApiServer: false,
       appName: undefined,
       clusterName: undefined,
+      isPortal: false,
     };
 
     labels.forEach((kv: KV) => {
@@ -192,6 +195,9 @@ export class Labels {
         !!props.isPrometheusApp || nkey === SpecialLabel.PrometheusApp;
       props.isKubeApiServer =
         !!props.isKubeApiServer || nkey === ReservedLabel.KubeApiServer;
+      props.isPortal = 
+        !!props.isPortal || `${kv.key}=${kv.value}` === SpecialLabel.Portal;
+
     });
 
     const appName = Labels.findAppNameInLabels(labels);

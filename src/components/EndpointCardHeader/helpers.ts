@@ -46,6 +46,13 @@ export const extractLogo = (ep: ServiceCard): Logo => {
     };
   }
 
+  if (ep.isPortal) {
+    return {
+      id: 'portal',
+      type: LogoType.PROTOCOL,
+    };
+  }
+
   const appProto = ep.appProtocol || 'kubernetes';
   return {
     id: appProto,
